@@ -1,0 +1,13 @@
+{
+  "name": "wasm-deno-rust-api",
+  "collaborators": [
+    "taroosg <root@taroosg.dev>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "wasm_deno_rust_api_bg.wasm",
+    "wasm_deno_rust_api.js",
+    "wasm_deno_rust_api_bg.js"
+  ],
+  "main": "wasm_deno_rust_api.js"
+}
