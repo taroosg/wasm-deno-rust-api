@@ -1,4 +1,4 @@
-// import { fib } from "./pkg/wasm_deno_rust_api.js";
+import { fib } from "./pkg/wasm_deno_rust_api.js";
 
 // addEventListener("fetch", (event) => {
 //   console.log(event);
