@@ -74,3 +74,41 @@ addEventListener("fetch", (event) => {
 ```bash
 $ deployctl run --allow-net --allow-read --watch ./server.ts
 ```
+
+ルーティング追記
+
+```ts
+import { fib } from "./pkg/wasm_deno_rust_api.js";
+import { Application, Router } from "https://deno.land/x/oak/mod.ts";
+
+const router = new Router();
+
+router
+  .get("/", (context) => {
+    context.response.body = "Chat server!";
+  })
+  .get("/:number", (context) => {
+    console.log(context.params);
+    const res = { result: fib(Number(context.params.number)).toString() };
+    context.response.body = JSON.stringify(res);
+  });
+
+const app = new Application();
+app.use(router.routes());
+app.use(router.allowedMethods());
+
+addEventListener("fetch", app.fetchEventHandler());
+
+```
+
+実行．
+
+```bash
+$ deployctl run --allow-net --allow-read --unstable --no-check --watch ./server.ts
+```
+
+`http://0.0.0.0:8080/10`にアクセスして`{result:55}`が表示されればOK．
+
+
+deno deployでなんとかする
+
