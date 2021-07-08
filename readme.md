@@ -69,13 +69,15 @@ addEventListener("fetch", (event) => {
 });
 ```
 
-実行．`http://0.0.0.0:8080`にアクセスしてメッセージが表示されればOK．
+## 動作確認（ローカル）
 
 ```bash
 $ deployctl run --allow-net --allow-read --watch ./server.ts
 ```
 
-ルーティング追記
+`http://0.0.0.0:8080`にアクセスしてメッセージが表示されればOK．
+
+## ルーティング設定
 
 ```ts
 import { fib } from "./pkg/wasm_deno_rust_api.js";
@@ -101,7 +103,7 @@ addEventListener("fetch", app.fetchEventHandler());
 
 ```
 
-実行．
+## 動作確認（ローカル）
 
 ```bash
 $ deployctl run --allow-net --allow-read --unstable --no-check --watch ./server.ts
@@ -110,5 +112,5 @@ $ deployctl run --allow-net --allow-read --unstable --no-check --watch ./server.
 `http://0.0.0.0:8080/10`にアクセスして`{result:55}`が表示されればOK．
 
 
-deno deployでなんとかする
+deno deployでなんとかしたいので後ほど追記．
 
