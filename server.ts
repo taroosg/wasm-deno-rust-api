@@ -17,8 +17,8 @@ router
   })
   .get("/:number", (context) => {
     console.log(context.params);
-    // const res = { result: fib(Number(context.params.number)).toString() };
-    const res = { result: Number(context.params.number).toString() };
+    const res = { result: fib(Number(context.params.number)).toString() };
+    // const res = { result: Number(context.params.number).toString() };
     // const res = { result: 42 };
     context.response.body = JSON.stringify(res);
   });
