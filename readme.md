@@ -111,6 +111,8 @@ $ deployctl run --allow-net --allow-read --unstable --no-check --watch ./server.
 
 `http://0.0.0.0:8080/10`にアクセスして`{result:55}`が表示されればOK．
 
+Rustに適当な関数を追加してビルド -> TSでインポートして動作確認する．
+
 
 deno deployでなんとかしたいので後ほど追記．
 
