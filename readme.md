@@ -49,7 +49,7 @@ mod tests {
 ## ビルド
 
 ```bash
-$ rustwasmc build --target deno --release
+$ wasm-pack build --target web
 ```
 
 ## deno-deployの設定
@@ -80,11 +80,19 @@ $ deployctl run --allow-net --allow-read --watch ./server.ts
 ## ルーティング設定
 
 ```ts
-import { fib } from "./pkg/wasm_deno_rust_api.js";
+import init, { fib } from "./pkg/wasm_deno_rust_api.js";
 import { Application, Router } from "https://deno.land/x/oak/mod.ts";
 
-const router = new Router();
+if (Deno.env.get("ENVIRONMENT") === "production") {
+  const res = await fetch(
+    "https://raw.githubusercontent.com/taroosg/wasm-deno-rust-api/main/pkg/wasm_deno_rust_api_bg.wasm"
+  );
+  await init(await res.arrayBuffer());
+} else {
+  await init(Deno.readFile("./pkg/wasm_deno_rust_api_bg.wasm"));
+}
 
+const router = new Router();
 router
   .get("/", (context) => {
     context.response.body = "Chat server!";
@@ -114,5 +122,14 @@ $ deployctl run --allow-net --allow-read --unstable --no-check --watch ./server.
 Rustに適当な関数を追加してビルド -> TSでインポートして動作確認する．
 
 
-deno deployでなんとかしたいので後ほど追記．
+## deno deployでデプロイ
 
+まず作成したコードをGitHubにpushしておく．
+
+deno deployのページからpushしたコードの`server.ts`を指定してプロジェクトを作成すると自動でデプロイされる．
+
+環境変数`ENVIRONMENT`で`production`を設定しておく．設定したら再度デプロイしないと反映されない模様．
+
+URLが発行されるので，`http://hogehoge/100`のように数値をつけて確認する．
+
+`{"result": 3736710778780434371"}`が表示されればOK！
