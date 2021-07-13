@@ -1,14 +1,4 @@
 import init, { fib } from "./pkg/wasm_deno_rust_api.js";
-
-// addEventListener("fetch", (event) => {
-//   console.log(event);
-//   const res = { result: fib(10).toString() };
-//   const response = new Response(JSON.stringify(res), {
-//     headers: { "content-type": "application/json" },
-//   });
-//   event.respondWith(response);
-// });
-
 import { Application, Router } from "https://deno.land/x/oak/mod.ts";
 
 if (Deno.env.get("ENVIRONMENT") === "production") {
