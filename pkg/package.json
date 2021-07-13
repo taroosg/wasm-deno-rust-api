@@ -7,7 +7,9 @@
   "files": [
     "wasm_deno_rust_api_bg.wasm",
     "wasm_deno_rust_api.js",
-    "wasm_deno_rust_api_bg.js"
+    "wasm_deno_rust_api.d.ts"
   ],
-  "main": "wasm_deno_rust_api.js"
+  "module": "wasm_deno_rust_api.js",
+  "types": "wasm_deno_rust_api.d.ts",
+  "sideEffects": false
 }

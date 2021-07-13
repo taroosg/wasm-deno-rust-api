@@ -1,4 +1,4 @@
-import { fib } from "./pkg/wasm_deno_rust_api.js";
+import init, { fib } from "./pkg/wasm_deno_rust_api.js";
 
 // addEventListener("fetch", (event) => {
 //   console.log(event);
@@ -10,6 +10,16 @@ import { fib } from "./pkg/wasm_deno_rust_api.js";
 // });
 
 import { Application, Router } from "https://deno.land/x/oak/mod.ts";
+
+if (Deno.env.get("ENVIRONMENT") === "production") {
+  const res = await fetch(
+    "https://raw.githubusercontent.com/taroosg/wasm-deno-rust-api/main/pkg/wasm_deno_rust_api_bg.wasm"
+  );
+  await init(await res.arrayBuffer());
+} else {
+  await init(Deno.readFile("./pkg/wasm_deno_rust_api_bg.wasm"));
+}
+
 const router = new Router();
 router
   .get("/", (context) => {
